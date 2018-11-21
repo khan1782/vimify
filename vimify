@@ -6,7 +6,7 @@ echo "vimifying..."
 if ! grep -q '" kevin vim stuff' ~/.vimrc ; then
 	# if vim stuff hasn't been added already append them to ~/.vimrc
 	echo "adding vim stuff"
-	cat vimrc >> ~/.vimrc
+	cat .vimrc >> ~/.vimrc
 else
 	echo "vim stuff has already been added"
 fi
