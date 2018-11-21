@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+echo "vimifying..."
+
+# check if vim configurations have been added already
+if ! grep -q '" kevin vim stuff' ~/.vimrc ; then
+	# if vim stuff hasn't been added already append them to ~/.vimrc
+	echo "adding vim stuff"
+	cat vimrc >> ~/.vimrc
+else
+	echo "vim stuff has already been added"
+fi
+
+echo "copying .vim to ~/.vim"
+cp -r .vim ~/.vim
