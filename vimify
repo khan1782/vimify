@@ -2,14 +2,34 @@
 
 echo "vimifying..."
 
-# check if vim configurations have been added already
-if ! grep -q '" kevin vim stuff' ~/.vimrc ; then
-	# if vim stuff hasn't been added already append them to ~/.vimrc
-	echo "adding vim stuff"
-	cat .vimrc >> ~/.vimrc
+#	check if there is a .vimrc
+#	if there is, rename it with .old
+#	cp the current vmrc with the new one
+#	do same with .vim folder
+
+
+if [ -f ~/.vimrc ]; then
+	echo ".vimrc file already exists."
+	echo " Renaming existing .vimrc file as .vimrc-old"
+	mv ~/.vimrc ~/.vimrc-old
 else
-	echo "vim stuff has already been added"
+	echo ".vimrc file does not exist."
 fi
 
-echo "copying .vim to ~/.vim"
+echo "Copying vimify .vimrc file to home directory"
+cp .vimrc ~/.vimrc
+
+# .vim folder contains bundles colors and autoload script.
+if [ -d ~/.vim ]; then
+	echo ".vim folder already exists"
+	echo "Renaming .vim folder "
+	rm -rf ~/.vim-old
+	mv  ~/.vim ~/.vim-old
+else
+	echo "no .vim folder found"
+fi
+
+echo "Copying vimify .vim folder to ~/.vim"
 cp -r .vim ~/.vim
+
+

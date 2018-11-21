@@ -1,9 +1,10 @@
-" kevin vim stuff
+" vimify stuff
 syntax on
 set number
-colorscheme seoul256 
-
-"colorscheme molokai 
+" colorscheme seoul256 
+colorscheme dracula
+" colorscheme monokai 
+"
 "set t_Co=256
 
 let g:javascript_plugin_jsdoc = 1 " javacript syntax highlighting
@@ -67,11 +68,11 @@ nnoremap <S-]> <C-w>k
 set backupcopy=yes
 
 " auto complete strings and objects
-inoremap <nowait> { {}<Left>
-inoremap <nowait> " ""<Left>
-inoremap <nowait> ' ''<Left>
-inoremap <nowait> ` ``<Left>
-inoremap <nowait> ( ()<Left>
+" inoremap <nowait> { {}<Left>
+" inoremap <nowait> " ""<Left>
+" inoremap <nowait> ' ''<Left>
+" inoremap <nowait> ` ``<Left>
+" inoremap <nowait> ( ()<Left>
 
 " in navigation mode control up and down
 nnoremap <C-Down> }
@@ -80,3 +81,15 @@ nnoremap <C-Up> {
 " in insert mode control up and down 
 inoremap <C-Down> <C-O>A
 inoremap <C-Up> <C-O>I
+
+" if nerdtree is the last buffer then close vim
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" for lastline
+set laststatus=2
+
+if !has('gui_running')
+	set t_Co=256
+endif
+set noshowmode
+
