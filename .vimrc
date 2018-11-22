@@ -111,5 +111,6 @@ set noshowmode
 " allow space after nerd commenter comment
 let g:NERDSpaceDelims = 1
 
-
+" show hidden files in nerd tree
+let NERDTreeShowHidden=1
 
