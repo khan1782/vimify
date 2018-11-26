@@ -2,10 +2,13 @@
 syntax on
 set number
 " colorscheme seoul256 
-colorscheme dracula
+" colorscheme dracula
 " colorscheme monokai 
-"
-"set t_Co=256
+colorscheme gruvbox
+
+
+" specific to gruvbox colorscheme ( can choose dark or light)
+set background=dark
 
 let g:javascript_plugin_jsdoc = 1 " javacript syntax highlighting
 
@@ -113,4 +116,21 @@ let g:NERDSpaceDelims = 1
 
 " show hidden files in nerd tree
 let NERDTreeShowHidden=1
+
+" fix missing first letter on nerdtree
+let NERDTreeNodeDelimiter = "\t"
+
+" for the nerdtree git status
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
 
