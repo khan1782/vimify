@@ -4,10 +4,11 @@ set number
 " colorscheme seoul256 
 " colorscheme dracula
 " colorscheme monokai 
+
+
+" specific to gruvbox colorscheme 
+" can choose dark or light
 colorscheme gruvbox
-
-
-" specific to gruvbox colorscheme ( can choose dark or light)
 set background=dark
 
 let g:javascript_plugin_jsdoc = 1 " javacript syntax highlighting
