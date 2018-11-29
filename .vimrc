@@ -140,3 +140,7 @@ let g:NERDTreeIndicatorMapCustom = {
 " for ultisnips
 set runtimepath+=~/.vim/ultisnips_rep
 
+" added after youcompleteme to make backspacing work
+set backspace=indent,eol,start
+
+
