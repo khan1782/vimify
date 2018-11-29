@@ -55,7 +55,7 @@ install_dependencies() {
 	ln -s ~/.vim/ultisnips/ftdetect/* ~/.vim/ftdetect/
 
 	echo "Installing dependencies for YouCompleteMe autocomplete"
-	yes Y | sudo apt-get install build-essential cmake python3-dev python-dev
+	echo "Y" | sudo apt-get install build-essential cmake python3-dev python-dev
 	
 	echo "Compiling YouCompleteMe with semantic support for C-family"
 
