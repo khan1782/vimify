@@ -138,3 +138,5 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Unknown"   : "?"
     \ }
 
+" for later version of vim
+set backspace=indent,eol,start
