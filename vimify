@@ -44,7 +44,7 @@ update_vim_folder() {
 update_vim() {
 	echo -ne "\n" | sudo add-apt-repository ppa:jonathonf/vim
 	sudo apt update
-	yes Y | sudo apt install vim
+	echo "Y" | sudo apt install vim
 
 }
 
