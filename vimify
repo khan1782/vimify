@@ -56,11 +56,8 @@ install_dependencies() {
 	echo "Installing dependencies for YouCompleteMe autocomplete"
 	sudo apt-get install build-essential cmake python3-dev python-dev
 	
-
 	echo "Compiling YouCompleteMe with semantic support for C-family"
-
 	cd ~/.vim/bundle/YouCompleteMe
-
 	# TODO need to make sure nvm and node is installed
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	export NVM_DIR="$HOME/.nvm"
