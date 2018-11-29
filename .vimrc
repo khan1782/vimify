@@ -7,12 +7,11 @@ set number
 " colorscheme apprentice
 " colorscheme molokai
 " colorscheme kolor
-colorscheme vice
+" colorscheme vice
+" colorscheme herald
+colorscheme gruvbox
 
-" specific to gruvbox colorscheme 
-" can choose dark or light
-" colorscheme gruvbox
-" set background=dark
+set background=dark
 
 let g:javascript_plugin_jsdoc = 1 " javacript syntax highlighting
 
@@ -137,4 +136,7 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
+
+" for ultisnips
+set runtimepath+=~/.vim/ultisnips_rep
 

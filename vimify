@@ -7,29 +7,145 @@ echo "vimifying..."
 #	cp the current vmrc with the new one
 #	do same with .vim folder
 
+update_vimrc() {
 
-if [ -f ~/.vimrc ]; then
-	echo ".vimrc file already exists."
-	echo " Renaming existing .vimrc file as .vimrc-old"
-	mv ~/.vimrc ~/.vimrc-old
-else
-	echo ".vimrc file does not exist."
-fi
+	# CHECK FOR AND INSTALL ~/.vimrc FILE
+	if [ -f ~/.vimrc ]; then
+		echo ".vimrc file already exists."
+		echo " Renaming existing .vimrc file as .vimrc-old"
+		mv ~/.vimrc ~/.vimrc-old
+	else
+		echo ".vimrc file does not exist."
+	fi
 
-echo "Copying vimify .vimrc file to home directory"
-cp .vimrc ~/.vimrc
+	echo "Copying vimify .vimrc file to home directory"
+	cp .vimrc ~/.vimrc
+}
 
-# .vim folder contains bundles colors and autoload script.
-if [ -d ~/.vim ]; then
-	echo ".vim folder already exists"
-	echo "Renaming .vim folder "
-	rm -rf ~/.vim-old
-	mv  ~/.vim ~/.vim-old
-else
-	echo "no .vim folder found"
-fi
+update_vim_folder() {
+	# CHECK FOR AND INSTALL .vim FOLDER
+	# .vim folder contains bundles colors and autoload script.
+	if [ -d ~/.vim ]; then
+		echo ".vim folder already exists"
+		echo "Renaming .vim folder "
+		rm -rf ~/.vim-old
+		mv  ~/.vim ~/.vim-old
+	else
+		echo "no .vim folder found"
+	fi
 
-echo "Copying vimify .vim folder to ~/.vim"
-cp -r .vim ~/.vim
+	echo "Copying vimify .vim folder to ~/.vim"
+	cp -r .vim ~/.vim
+}
+
+update_vim() {
+	echo "Updating Vim"
+	# debian like linux distro dependencies
+	sudo apt install libncurses5-dev libgnome2-dev libgnomeui-dev \
+	libgtk2.0-dev libatk1.0-dev libbonoboui2-dev \
+	libcairo2-dev libx11-dev libxpm-dev libxt-dev python-dev \
+	python3-dev ruby-dev lua5.1 liblua5.1-dev libperl-dev git
+
+	# remove current vim
+	sudo apt remove vim vim-runtime gvim
+
+	# download source
+	cd ~
+	git clone https://github.com/vim/vim.git
+	cd vim
+
+	# configure stuff
+	./configure \
+		--with-features=huge \
+		--enable-multibyte \
+		--enable-rubyinterp=yes \
+		--enable-pythoninterp=yes \
+		--with-python-config-dir=/usr/lib/python2.7/config \ # pay attention here check directory correct
+		--enable-python3interp=yes \
+		--with-python3-config-dir=/usr/lib/python3.5/config \
+		--enable-perlinterp=yes \
+		--enable-luainterp=yes \
+		--enable-gui=gtk2 \
+		--enable-cscope \
+		--prefix=/usr/local
+	
+	# compile
+	make VIMRUNTIMEDIR=/usr/local/share/vim/vim81
+	sudo make install
+	
+	# set vim as default editor
+	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 1
+	sudo update-alternatives --set editor /usr/local/bin/vim
+	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 1
+	sudo update-alternatives --set vi /usr/local/bin/vim
+}
+
+install_dependencies() {
+	# INSTALL DEPENDENCIES
+	echo "Creating UltiSnips ftdetect simlink"
+	mkdir -p ~/.vim/ftdetect/
+	ln -s ~/.vim/ultisnips/ftdetect/* ~/.vim/ftdetect/
+
+	echo "Installing dependencies for YouCompleteMe autocomplete"
+	sudo apt-get install build-essential cmake3 python3-dev
+
+	echo "Compiling YouCompleteMe with semantic support for C-family"
+
+	cd ~/.vim/bundle/YouCompleteMe
+
+	# TODO need to make sure nvm and node is installed
+	python3 install.py --clang-completer --ts-completer
+}
+
+case $1 in
+	install)
+		update_vimrc
+		update_vim_folder
+		install_dependencies
+	;;
+
+	update_all)
+		update_vimrc
+		update_vim_folder
+	;;
+	update_pkgs)
+		update_vim_folder
+	;;
+	update_conf)
+		update_vimrc
+	;;
+
+	install_all)
+		update_vim
+		update_vimrc
+		update_vim_folder
+		install_dependencies
+	;;
+	install_dependencies)
+		install_dependencies	
+	;;
+	replace_vim_program)
+		update_vim
+	;;
+	*)
+		echo "Vimify"
+		echo ""
+		echo "Usage: vimify [command]"
+		echo ""
+		echo "  install               if unsure, run this. If vim is out of date run update_vim_program"
+		echo "                        will update .vim .vimrc and grab apt dependencies, and run installers"
+		echo ""
+		echo "  update_all		        install dependencies for pkgs, and update  .vim and .vimrc"
+		echo "  update_pkgs           copy over .vim folder from vimify to ~/.vim"
+		echo "  update_conf           override ~/.vimrc file with vimify's .vimrc"
+		echo ""
+		echo "  install_all           run install and update_vim_program"
+		echo "  install_dependencies	install dependencies only"
+		echo "  replace_vim_program   for Ubuntu systems, deletes old vim, downloads source, and recompiles"
+		echo ""
+
+	;;
+
+esac
 
 
