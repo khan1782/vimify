@@ -6,13 +6,11 @@ set number
 " colorscheme monokai 
 " colorscheme apprentice
 " colorscheme molokai
-" colorscheme kolor
-colorscheme vice
-
-" specific to gruvbox colorscheme 
-" can choose dark or light
+colorscheme kolor
+" colorscheme vice
 " colorscheme gruvbox
-" set background=dark
+
+set background=dark
 
 let g:javascript_plugin_jsdoc = 1 " javacript syntax highlighting
 
@@ -137,4 +135,5 @@ let g:NERDTreeIndicatorMapCustom = {
     \ 'Ignored'   : '☒',
     \ "Unknown"   : "?"
     \ }
+set backspace=indent,eol,start
 
